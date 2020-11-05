@@ -4,9 +4,9 @@ abstract class Bot {
 	public const order = ['server', 'port', 'nick', 'token', 'channels', 'admins'];
 
 	protected $socket;
-	protected $timeout = 0;/**///time()
+	protected $timeout = 0;
 	protected $nick = '';
-	public $admins = [];/**///При изменении добавлять в конфиг. Добавить $channels - конфиг и зайти на ходу
+	public $admins = [];
 
 	public function __construct($server, $port, $nick, $token, $channels, $admins) {
 		$this->socket = fsockopen($server, $port);
@@ -25,26 +25,26 @@ abstract class Bot {
 	}
 	public function log($log) {
 		echo $log;
-		echo '<!--'.str_repeat('-', 10000).'-->'; //kostil
-		flush(); /**///работает при определённом кол-ве данных в хроме
+		flush();
 	}
 	public function channels($channels, $join) {
 		foreach ((array)$channels as $chan) {
-			$this->send_data(($join ? 'JOIN' : 'PART') . ' #' . strtolower($chan)); /**///Follow
+			$this->send_data(($join ? 'JOIN' : 'PART') . ' #' . strtolower($chan));
+			//TODO: add follow
 		}
 	}
-	/**/public function main() {
+	public function main() {
 		$this->log('start<br>');
 		while (true) {
 			$data = fgets($this->socket);
 			if (!$data) continue;
-			$this->log('<b>&gt;</b> ' . nl2br($data)); /**///вывод сообщений в норм виде
+			$this->log('<b>&gt;</b> ' . nl2br($data));
 			$data = str_replace(["\r", "\n"], ' ', $data);
 			$data = explode(' ', $data, 4);
 			if ($data[0] === 'PING') {
 				$this->send_data("PONG {$data[1]}");
 			}
-			elseif ($data[1] === 'NOTICE' || false) { /**///при разрыве с клиентом
+			elseif ($data[1] === 'NOTICE' || false) {
 				break;
 			}
 			elseif ($data[1] === 'PRIVMSG') {	
@@ -58,7 +58,7 @@ abstract class Bot {
 		$text = explode(' ', substr($text, 1), 2);
 		$cmd = $text[0]; $args = $text[1];
 
-		switch (true) { /**///handle_cmd (?)
+		switch (true) {
 			case in_array($sender, $this->admins, true):
 				//admin's commands
 				switch($cmd) {
