@@ -5,7 +5,7 @@ Small collection of IRC bots for twitch written in PHP
 
 ## Config files
 
-* `/bots.ini` - 
+* [`bots.ini`](/bots.ini) - 
 This file defined bots. Each bot can have the following properties:
     * `class` - Which class to use. See [Classes](#classes) below.
     * `nick` - Nickname of bot on twitch.
@@ -13,13 +13,13 @@ This file defined bots. Each bot can have the following properties:
     * `admins` - An array of accounts that are is considered to be an admin for this bot.
     * `server` and `port` - it might change, see Twitch's documentation/FAQ.
 
-* `/config.ini` - 
+* [`config.ini`](/config.ini) - 
 Has three parts:
     * `bot` - Which bot from `/bots.ini` config to start?
     * `default` - This settings will be merged into bot's settings, if they were not defined there. For appending arrays, use `global`
     * `global` - This will append arrays to bot settings' arrays. For example, you might indicate who will be admin for all bots.
     
-* `/accounts.ini` - 
+* `accounts.ini` - 
 A file with bots' nicknames and their tokens. To get token, see Twitch's documentation/FAQ. For example, this file might look like this:
 ```
 BotRuiner = qdcn9nba0okbtj38grpmwmzhzurxxp
@@ -31,18 +31,18 @@ Of course, this is not real tokens :)
 
 ## Classes
 
-* `/classes/Bot.php` - 
+* [`Bot.php`](/classes/Bot.php) - 
 General abstract class.
 Easily extendible to add your own commands.
 
-* `/classes/Repeater.php` - 
+* [`Repeater.php`](/classes/Repeater.php) - 
 Just repeats all messages.
 Convenient for testing.
 
-* `/classes/Ruiner.php` - 
+* [`Ruiner.php`](/classes/Ruiner.php) - 
 Detects certain multi-message (composite) emoticons of certain clannels and ruins them by sending a message in between those messages.
 
-* `/classes/GameOfLife.php` - 
+* [`GameOfLife.php`](/classes/GameOfLife.php) - 
 This bot was written for one channel, that hosted GameOfLife on twitch.
 It just filled all the field with repeating pattern.
 Here is how it worked:
